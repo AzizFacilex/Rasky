@@ -1,0 +1,71 @@
+<div class="cards-container">
+  <div fxLayout="column" fxLayoutAlign="start center">
+    <img class="profile-image" [src]="profile.userImage">
+    <h3>{{profile.userFirstName}} {{profile.userLastName}}</h3>
+  </div>
+
+
+  <mat-card class="description-card">
+    <mat-card-header>
+      <mat-card-subtitle>{{profile.userExperienceText}}{{profile.userExperience}}</mat-card-subtitle>
+
+    </mat-card-header>
+
+    <mat-card-content>
+      <div style="width:100%">
+        {{profile.userSummary}}
+      </div>
+
+    </mat-card-content>
+    <mat-card-subtitle style="float:right">{{profile.userRatingText}}{{profile.userRating}} / 10</mat-card-subtitle>
+  </mat-card>
+  <mat-divider></mat-divider>
+  <mat-card class="pref-card">
+    <mat-card-content fxLayout="column" fxLayoutGap="2%">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%">
+        <mat-icon *ngIf="!profile.prefSmoke">smoke_free</mat-icon>
+        <mat-icon *ngIf="profile.prefSmoke">smoking_rooms</mat-icon>
+
+        <span>{{profile.prefSmokeText}}</span>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%">
+        <mat-icon *ngIf="profile.prefPet">pets</mat-icon>
+        <mat-icon *ngIf="!profile.prefPet">pets</mat-icon>
+        <span>{{profile.prefPetText}}</span>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%">
+        <mat-icon *ngIf="!profile.prefMusic">music_off</mat-icon>
+        <mat-icon *ngIf="profile.prefMusic">music_note</mat-icon>
+        <span>{{profile.prefMusicText}}</span>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%">
+        <mat-icon *ngIf="profile.prefDiscussion">record_voice_over</mat-icon>
+        <mat-icon *ngIf="!profile.prefDiscussion">voice_over_off</mat-icon>
+        <span>{{profile.prefDiscussionText}}</span>
+      </div>
+
+
+    </mat-card-content>
+  </mat-card>
+  <mat-divider></mat-divider>
+  <mat-card class="verif-card">
+      <mat-card-content fxLayout="column" fxLayoutGap="2%">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%">
+          <mat-icon color="warn" *ngIf="!profile.idVerified">highlight_off</mat-icon>
+          <mat-icon color="primary" *ngIf="profile.idVerified">check_circle_outline</mat-icon>
+
+          <span>{{profile.idVerifiedText}}</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%">
+          <mat-icon color="primary" *ngIf="profile.mobileVerified">check_circle_outline</mat-icon>
+          <mat-icon  color="warn" *ngIf="!profile.mobileVerified">highlight_off</mat-icon>
+          <span>{{profile.mobileVerifiedText}}</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%">
+          <mat-icon color="warn" *ngIf="!profile.emailVerified">highlight_off</mat-icon>
+          <mat-icon color="primary" *ngIf="profile.emailVerified">check_circle_outline</mat-icon>
+          <span>{{profile.emailVerifiedText}}</span>
+        </div>
+      </mat-card-content>
+  </mat-card>
+</div>

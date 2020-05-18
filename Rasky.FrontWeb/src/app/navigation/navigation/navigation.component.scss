@@ -1,0 +1,59 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.scroll {
+  overflow-x:hidden;
+  overflow-y: hidden;
+}
+
+​
+.position-fixed
+{
+  position: fixed;
+}
+.sidenav .mat-toolbar {
+  background: inherit;
+
+}
+.initial-side-nav
+{
+  width: 70px;
+}
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.overflow-hiden-container
+{
+  overflow: hidden;
+}
+.nav-container
+{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+/* Style the links inside the sidenav */
+
+.fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  bottom: 0;
+}
+.dialogStyle .mat-dialog-container
+  {
+    padding: 0px
+}
+.hidden-router {
+
+  overflow: hidden;
+}
+.example-form {
+  transform: scale(0.7)
+}

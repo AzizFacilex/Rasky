@@ -1,0 +1,21 @@
+{
+    "UserExperienceText": "Expérience : ",
+    "PrefMusicText": "J'aime écouter de la Musique.",
+    "NoPrefMusicText": "Pas de musique.",
+    "PrefSmokeText": "Fumer est autorisé.",
+    "NoPrefSmokeText": "Fumer n'est pas autorisé.",
+    "PrefDiscussionText": "J'aime discuter.",
+    "NoPrefDiscussionText": "Trop Parler est inacceptable.",
+    "PrefPetText": "Animaux sont autorisés.",
+    "NoPrefPetText": "Pas d'animaux dans la voiture.",
+    "IdVerfiedText": "Identité vérifée.",
+    "IdNotVerfiedText": "Identité n'est pas vérifée",
+    "MobileVerifiedText": "Numéro de Téléphone verifié",
+    "MobileNotVerifiedText": "Numéro de Téléphone n'est pas verifié",
+    "EmailVerifiedText": "Email verifiée",
+    "EmailNotVerifiedText": "Email n'est pas verifiée",
+    
+    "Beginner":"Débutant",
+    "Intermidiate":"Intermédiaire",
+    "expert":"Éxpert"
+}

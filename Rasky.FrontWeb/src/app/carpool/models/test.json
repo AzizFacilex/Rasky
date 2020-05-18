@@ -1,0 +1,129 @@
+{
+    "isRoadTrip": false,
+    "mainTrip": {
+      "fromAddress": {
+        "type": "POI",
+        "id": "TN/POI/p0/16940",
+        "score": 2.024,
+        "info": "search:ta:788009000196590-TN",
+        "poi": {
+          "name": "Monoprix",
+          "categorySet": [
+            {
+              "id": 7373
+            }
+          ],
+          "url": "www.monoprixtunisie.com",
+          "categories": [
+            "shopping center"
+          ],
+          "classifications": [
+            {
+              "code": "SHOPPING_CENTER",
+              "names": [
+                {
+                  "nameLocale": "en-US",
+                  "name": "shopping center"
+                }
+              ]
+            }
+          ]
+        },
+        "address": {
+          "streetName": "Rue Amilcar",
+          "municipalitySubdivision": "Menazeh",
+          "municipality": "Ariana",
+          "countrySubdivision": "Ariana",
+          "countryCode": "TN",
+          "country": "Tunisia",
+          "countryCodeISO3": "TUN",
+          "freeformAddress": "Rue Amilcar, Menazeh, Ariana"
+        },
+        "position": {
+          "lat": 36.8536,
+          "lon": 10.15616
+        },
+        "viewport": {
+          "topLeftPoint": {
+            "lat": 36.8545,
+            "lon": 10.15504
+          },
+          "btmRightPoint": {
+            "lat": 36.8527,
+            "lon": 10.15728
+          }
+        },
+        "entryPoints": [
+          {
+            "type": "main",
+            "position": {
+              "lat": 36.85374,
+              "lon": 10.15616
+            }
+          }
+        ]
+      },
+      "toAddress": {
+        "type": "POI",
+        "id": "TN/POI/p0/63239",
+        "score": 3.826,
+        "info": "search:ta:788009000151544-TN",
+        "poi": {
+          "name": "Monoprix Express",
+          "categorySet": [
+            {
+              "id": 7373
+            }
+          ],
+          "categories": [
+            "shopping center"
+          ],
+          "classifications": [
+            {
+              "code": "SHOPPING_CENTER",
+              "names": [
+                {
+                  "nameLocale": "en-US",
+                  "name": "shopping center"
+                }
+              ]
+            }
+          ]
+        },
+        "address": {
+          "streetName": "Rue Abou El Kacem Echebbi",
+          "municipalitySubdivision": "Sfax Medina",
+          "municipality": "Sfax",
+          "countrySubdivision": "Sfax",
+          "countryCode": "TN",
+          "country": "Tunisia",
+          "countryCodeISO3": "TUN",
+          "freeformAddress": "Rue Abou El Kacem Echebbi, Sfax Medina, Sfax"
+        },
+        "position": {
+          "lat": 34.73267,
+          "lon": 10.76475
+        },
+        "viewport": {
+          "topLeftPoint": {
+            "lat": 34.73357,
+            "lon": 10.76366
+          },
+          "btmRightPoint": {
+            "lat": 34.73177,
+            "lon": 10.76584
+          }
+        },
+        "entryPoints": [
+          {
+            "type": "main",
+            "position": {
+              "lat": 34.73272,
+              "lon": 10.76481
+            }
+          }
+        ]
+      }
+    },
+    "layoverTrips": []
+  }

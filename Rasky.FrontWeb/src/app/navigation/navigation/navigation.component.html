@@ -1,0 +1,122 @@
+<div class="nav-container">
+    <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center" class="position-fixed">
+      <button type="button" *ngIf="currentUser" aria-label="Toggle sidenav" (click)="toggleSideBar()" mat-icon-button>
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+
+      </button>
+        <span *ngIf="!currentUser">
+
+          <form [formGroup]="loginForm" class="example-form">
+
+            <div fxLayout="row" fxLayoutGap="5%" fxLayoutAlign="center center">
+              <mat-form-field>
+                <input matInput placeholder="Email" formControlName="emailFormControl" >
+                <mat-error *ngIf="f.emailFormControl.hasError('email') && !f.emailFormControl.hasError('required')">
+                  Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="f.emailFormControl.hasError('required')">
+                  Email is <strong>required</strong>
+                </mat-error>
+
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Password" type="password" formControlName="passwordFormControl">
+                <mat-error
+                  *ngIf="f.passwordFormControl.hasError('password') && !f.passwordFormControl.hasError('required')">
+                  Please enter a valid password
+                </mat-error>
+                <mat-error *ngIf="f.passwordFormControl.hasError('required')">
+                  Password is <strong>required</strong>
+                </mat-error>
+
+              </mat-form-field>
+              <div>
+                <mat-spinner *ngIf="loginLoading" color="warn" style="margin-left:5%" diameter="25"></mat-spinner>
+
+              </div>
+              <span><a type="button" mat-button (click)="openDialogForgotPassword()">Forgot password?</a></span>
+
+            </div>
+
+          </form>
+
+        </span>
+        <span fxLayoutGap="5%" *ngIf="!currentUser">
+          <button mat-raised-button (click)="openDialogRegister()">Register</button>
+          <button mat-raised-button (click)="onSubmit()">Login</button>
+        </span>
+      </mat-toolbar>
+  <mat-sidenav-container class=" sidenav-container" fixedInViewport="true">
+
+    <mat-sidenav *ngIf="currentUser" class="initial-side-nav" [@sideBarState]="SideBar" #drawer opened mode="side"
+      role="navigation">
+      <mat-nav-list id="mySidenav">
+        <div>
+
+          <a mat-list-item [routerLink]="[{outlets: {  'carpool': ['create']}} ]" (click)="setFocus('carpool')">
+            <mat-icon mat-list-icon>home</mat-icon>
+            <p matLine>Home</p>
+          </a>
+          <mat-divider></mat-divider>
+
+          <a mat-list-item [routerLink]="[{outlets: {   'profile' : ['public', currentUser.id]}} ]" (click)="setFocus('profile')">
+            <mat-icon mat-list-icon>account_circle</mat-icon>
+            <p matLine>Profile</p>
+          </a>
+          <mat-divider></mat-divider>
+          <a mat-list-item [routerLink]="[{outlets: {   'profile' : 'private'}} ]" (click)="setFocus('profile')">
+            <mat-icon mat-list-icon>inbox</mat-icon>
+            <p matLine>Inbox</p>
+          </a>
+          <mat-divider></mat-divider>
+          <a mat-list-item [routerLink]="[{outlets: {  'carpool': ['showRide','8987c38f-f37f-446e-88af-1a71aa02655c']}} ]" (click)="setFocus('carpool')">
+            <mat-icon mat-list-icon>home</mat-icon>
+            <p matLine>Home</p>
+          </a>
+          <a mat-list-item (click)="toggleActive($event)">
+            <mat-icon mat-list-icon>inbox</mat-icon>
+            <p matLine>Inbox</p>
+          </a>
+          <a mat-list-item (click)="toggleActive($event)">
+            <mat-icon mat-list-icon>star</mat-icon>
+            <p matLine>Starred</p>
+          </a>
+          <mat-divider></mat-divider>
+          <a mat-list-item (click)="toggleActive($event)">
+            <mat-icon mat-list-icon>mail</mat-icon>
+            <p matLine>All Mail</p>
+          </a>
+        </div>
+        <span class="fill-remaining-space"></span>
+        <div>
+          <mat-divider></mat-divider>
+
+          <a mat-list-item (click)="logout()">
+            <mat-icon mat-list-icon>exit_to_app</mat-icon>
+
+            <p matLine>Logout</p>
+          </a>
+          <mat-divider></mat-divider>
+
+        </div>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content style="overflow:hidden">
+
+      <div fxLayout="row"   fxLayoutAlign="center start">
+        <div *ngIf="focus==='profile'" style="position: absolute" [@flyInOut]>
+          <router-outlet class="hidden-router"  name="profile"></router-outlet>
+
+        </div>
+        <div *ngIf="focus==='carpool'"  style="position: absolute"  [@flyInOut]>
+          <router-outlet class="hidden-router" name="carpool"></router-outlet>
+
+        </div>
+
+      </div>
+
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+</div>

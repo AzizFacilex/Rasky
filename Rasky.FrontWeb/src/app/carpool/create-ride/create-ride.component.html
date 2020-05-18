@@ -1,0 +1,205 @@
+<div fxLayout="row" fxLayoutAlign="space-between start">
+    <div id="map"></div>
+
+
+    <form class="create-form" #createForm="ngForm" (ngSubmit)="createForm.valid && submitForm()">
+
+        <mat-card class="itinerary-card">
+            <mat-card-header>
+                <mat-card-title>Itinerary</mat-card-title>
+
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field style="width:100%;">
+                    <input matInput [(ngModel)]="createRide.Trip.fromAddress" (input)="onFromChanged($event.target.value)" (blur)="checkFromAddress()" name="fromAddress" [matAutocomplete]="auto" #fromInput placeholder="From" required>
+                    <mat-error *ngIf="createForm.invalid&&createForm.form.get('fromAddress').hasError('required')">Start typing to select From the list</mat-error>
+
+                    <mat-autocomplete (optionSelected)='onFromSelected($event.option.value)' [displayWith]="displayFn" #auto="matAutocomplete" placeholder="From">
+
+                        <mat-option *ngFor="let result of fromfilterdAddresse?.results" [value]="result">
+                            <span>{{result.poi.name}}, {{ result.address.municipalitySubdivision}}</span>
+
+                        </mat-option>
+                    </mat-autocomplete>
+                    <button *ngIf="fromInput.value!==''" matTooltip="Clear text" (click)="onFromCleared()" type="button" mat-icon-button matSuffix>
+            <mat-icon>highlight_off</mat-icon>
+          </button>
+                </mat-form-field>
+                <mat-form-field style="width:100%;">
+                    <input (blur)="checkToAddress()" name="toAddress" [(ngModel)]="createRide.Trip.toAddress" #toInput matInput (input)="onToChanged($event.target.value)" [matAutocomplete]="auto1" placeholder="to" required>
+                    <mat-error *ngIf="createForm.invalid&&createForm.form.get('toAddress').hasError('required')">Start typing to select From the list</mat-error>
+
+                    <mat-autocomplete #auto1="matAutocomplete" (optionSelected)='onToSelected($event.option.value)' [displayWith]="displayFn" placeholder="to" required>
+                        <mat-option *ngFor="let result of tofilterdAddresse?.results" [value]="result">
+                            <span>{{result.poi.name}}, {{ result.address.municipalitySubdivision}}</span>
+
+                        </mat-option>
+                    </mat-autocomplete>
+                    <button *ngIf="toInput.value!==''" matTooltip="Clear text" (click)="onToCleared()" type="button" mat-icon-button matSuffix>
+            <mat-icon>highlight_off</mat-icon>
+          </button>
+                </mat-form-field>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <span *ngIf="!addedLayover"></span>
+                    <mat-form-field style="width:100%;" *ngIf="createRide.Trip.fromAddress&&createRide.Trip.toAddress">
+                        <input matInput #layoverInput name="layoverAddress" (blur)="checkLayoverAddress()" [(ngModel)]="createRide.Trip.layoverAddress" [matAutocomplete]="auto2" (input)="onLayoverChange($event.target.value)" placeholder="Layover">
+
+                        <mat-autocomplete (optionSelected)='onLayoverSelected($event.option.value)' #auto2="matAutocomplete" [displayWith]="displayFn" placeholder="to">
+                            <mat-option *ngFor="let result of layover?.results" [value]="result">
+                                <span>{{result.poi.name}}, {{ result.address.municipalitySubdivision}}</span>
+
+                            </mat-option>
+                        </mat-autocomplete>
+                        <button *ngIf="layoverInput.value!==''" matTooltip="Clear text" (click)="onLayoverCleared()" type="button" mat-icon-button matSuffix>
+              <mat-icon>highlight_off</mat-icon>
+            </button>
+                        <mat-hint *ngIf="!createRide.Trip.layoverAddress">Leave blank, if you won't lay over</mat-hint>
+
+                    </mat-form-field>
+
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+        <mat-divider></mat-divider>
+
+        <mat-card class="schedule-card">
+            <mat-card-header fxLayoutAlign="space-between start">
+                <mat-card-title>Schedule</mat-card-title>
+                <mat-checkbox name="isRoadTrip" [(ngModel)]="createRide.isRoadTrip" matSuffix>Road trip
+                </mat-checkbox>
+            </mat-card-header>
+            <mat-card-content>
+                <div fxLayout="row" fxLayoutGap="3%">
+                    <mat-form-field>
+                        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+
+                        <input matInput name="departureDate" [min]="createRide.minDate" (dateChange)="setRoadTripDate()" [matDatepicker]="dp" [(ngModel)]="createRide.Trip.departureDate" required>
+                        <mat-datepicker disabled="false" #dp></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field class="scroll">
+                        <mat-label>Hour</mat-label>
+                        <mat-select name="departureHour" [(ngModel)]="createRide.Trip.departureHour" matInput required>
+                            <mat-option *ngFor="let hour of hours" [value]="hour">{{hour}}</mat-option>
+
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Minutes</mat-label>
+
+                        <mat-select name="departureMinutes" [(ngModel)]="createRide.Trip.departureMinutes" matInput required>
+                            <mat-option *ngFor="let minute of minutes;let i=index" [value]="minute">{{minute}}</mat-option>
+
+                        </mat-select>
+                    </mat-form-field>
+
+                </div>
+                <div fxLayout="row" *ngIf="createRide.isRoadTrip" fxLayoutGap="3%">
+                    <mat-form-field>
+                        <input matInput name="roadtripDeparture" [min]="createRide.Trip?.departureDate" [matDatepicker]="rdp" [(ngModel)]="createRide.Trip.roadTripDate" [required]="createRide.isRoadTrip">
+                        <mat-datepicker-toggle matSuffix [for]="rdp"></mat-datepicker-toggle>
+                        <mat-datepicker disabled="false" #rdp></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field class="scroll">
+                        <mat-label>Hour</mat-label>
+
+                        <mat-select name="roadTripDepartureHour" [(ngModel)]="createRide.Trip.roadTripDepartureHour" matInput required>
+                            <mat-option *ngFor="let hour of hours;let i=index" [value]="hour">{{hour}}</mat-option>
+
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Minutes</mat-label>
+
+                        <mat-select name="roadTripDepartureMinutes" [(ngModel)]="createRide.Trip.roadTripDepartureMinutes" matInput required>
+                            <mat-option *ngFor="let minute of minutes;let i=index" [value]="minute">{{minute}}</mat-option>
+
+                        </mat-select>
+                    </mat-form-field>
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-divider></mat-divider>
+        <mat-card class="seats-card">
+            <mat-card-header>
+                <mat-card-title>Free seats</mat-card-title>
+
+            </mat-card-header>
+            <mat-card-content>
+                <div style="width:100%" *ngIf="createRide?.Trip?.fromAddress?.address&&createRide?.Trip?.toAddress?.address&&!createRide?.Trip?.layoverAddress?.address" fxLayout="row" fxLayoutAlign="space-between center">
+
+                    <div fxLaout="row" fxLayoutAlign="start center">
+                        <strong>{{createRide?.Trip?.fromAddress?.address?.municipality}}</strong>
+                        <mat-icon>arrow_forward</mat-icon>
+                        <strong>{{createRide?.Trip?.toAddress?.address?.municipality}}</strong>
+
+                    </div>
+                    <div fxlayout="row">
+                        <button (click)="decrementSeats1()" type="button" color="primary" mat-icon-button>
+              <mat-icon>add_box</mat-icon>
+            </button>
+                        <label>{{createRide.Trip.freeSeats1}}</label>
+
+                        <button (click)="incrementSeats1()" type="button" color="primary" mat-icon-button>
+              <mat-icon>add_box</mat-icon>
+            </button>
+                    </div>
+                </div>
+                <div style="width:100%" *ngIf="createRide?.Trip?.fromAddress?.address&&createRide?.Trip?.toAddress?.address&&createRide?.Trip?.layoverAddress?.address" fxLayout="column" fxLayoutAlign="center space-between">
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <div fxLayoutAlign="start center">
+                            <strong>{{createRide?.Trip?.fromAddress?.address?.municipality}}</strong>
+                            <mat-icon>arrow_forward</mat-icon>
+                            <strong>{{createRide?.Trip?.layoverAddress?.address?.municipality}}</strong>
+
+                        </div>
+                        <div>
+                            <button (click)="decrementSeats1()" type="button" color="primary" mat-icon-button>
+                <mat-icon>add_box</mat-icon>
+              </button>
+                            <label>{{createRide.Trip.freeSeats1}}</label>
+
+                            <button (click)="incrementSeats1()" type="button" color="primary" mat-icon-button>
+                <mat-icon>add_box</mat-icon>
+              </button>
+
+                        </div>
+                    </div>
+
+
+
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <div fxLayoutAlign="start center">
+                            <strong>{{createRide?.Trip?.layoverAddress?.address?.municipality}}</strong>
+                            <mat-icon>arrow_forward</mat-icon>
+                            <strong>{{createRide?.Trip?.toAddress?.address?.municipality}}</strong>
+
+                        </div>
+                        <div>
+                            <button (click)="decrementSeats2()" type="button" color="primary" mat-icon-button>
+                <mat-icon>add_box</mat-icon>
+              </button>
+                            <label>{{createRide.Trip.freeSeats2}}</label>
+
+                            <button (click)="incrementSeats2()" type="button" color="primary" mat-icon-button>
+                <mat-icon>add_box</mat-icon>
+              </button>
+                        </div>
+                    </div>
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <div fxLayoutAlign="end center">
+            <button mat-raised-button type="submit">Create</button>
+        </div>
+
+        <div>
+
+        </div>
+
+
+
+    </form>
+</div>

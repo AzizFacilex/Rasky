@@ -1,0 +1,200 @@
+<alert></alert>
+<form [formGroup]="formGroup" autocomplete="off">
+  <mat-horizontal-stepper *ngIf="!isPortrait()" linear #stepper>
+    <mat-step formGroupName="nameGroup" [stepControl]="formGroup.get('nameGroup')">
+      <ng-template matStepLabel>Name</ng-template>
+      <div fxLayout="row" fxLayoutGap="10%" >
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="First name" formControlName="firstName" required >
+            <mat-error
+              *ngIf="formGroup.get('nameGroup').get('firstName').invalid && (formGroup.get('nameGroup').get('firstName').dirty || formGroup.get('nameGroup').get('firstName').touched)">
+              First name is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="Last name" formControlName="lastName" required>
+            <mat-error
+              *ngIf="formGroup.get('nameGroup').get('lastName').invalid && (formGroup.get('nameGroup').get('lastName').dirty || formGroup.get('nameGroup').get('lastName').touched)">
+              Last name is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <button mat-raised-button  color="primary" type="button" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+
+    <mat-step formGroupName="emailGroup" [stepControl]="formGroup.get('emailGroup')">
+      <ng-template matStepLabel>Email</ng-template>
+      <div fxLayout="row" fxLayoutGap="10%" >
+          <div>
+          <mat-form-field>
+            <input matInput placeholder="Email" formControlName="email" required uniqueEmail>
+            <mat-error
+              *ngIf="(formGroup.get('emailGroup').get('email').hasError('required')||formGroup.get('emailGroup').get('email').hasError('email')) && (formGroup.get('emailGroup').get('email').dirty || formGroup.get('emailGroup').get('email').touched)">
+              Email must be valid.
+            </mat-error>
+            <mat-error
+              *ngIf="(formGroup.get('emailGroup').get('email').hasError('taken')) && (formGroup.get('emailGroup').get('email').dirty || formGroup.get('emailGroup').get('email').touched)">
+              Email already taken.
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="Confirm Email" autocomplete="off" formControlName="confirmEmail" required>
+            <mat-error
+              *ngIf="formGroup.get('emailGroup').get('confirmEmail').invalid && (formGroup.get('emailGroup').get('confirmEmail').dirty || formGroup.get('emailGroup').get('confirmEmail').touched)">
+              Emails do not match.
+            </mat-error>
+          </mat-form-field>
+
+
+        </div>
+
+      </div>
+
+      <div>
+        <button mat-raised-button color="primary" type="button" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step formGroupName="passwordGroup" [stepControl]="formGroup.get('passwordGroup')">
+      <ng-template matStepLabel>Password</ng-template>
+      <div fxLayout="row" fxLayoutGap="10%" >
+          <mat-form-field>
+          <input matInput placeholder="Password" #password type="password" formControlName="password" required>
+          <mat-error
+            *ngIf="formGroup.get('passwordGroup').get('password').invalid && (formGroup.get('passwordGroup').get('password').dirty || formGroup.get('passwordGroup').get('password').touched)">
+            Minimum 8 characters.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Confirm Password" type="password" formControlName="confirmPassword" required>
+          <mat-error
+            *ngIf="formGroup.get('passwordGroup').invalid && (formGroup.get('passwordGroup').get('confirmPassword').dirty || formGroup.get('passwordGroup').get('confirmPassword').touched)">
+            Passwords do not match.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-raised-button color="primary" type="button" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step [stepControl]="phoneNumber">
+      <ng-template matStepLabel>Done</ng-template>
+      <mat-form-field>
+        <input matInput (keypress)="numberOnly($event)" placeholder="Phone number" formControlName="phoneNumber"
+          required>
+        <mat-error
+          *ngIf="formGroup.get('phoneNumber').invalid && (formGroup.get('phoneNumber').dirty || formGroup.get('phoneNumber').touched)">
+          Valid phone number required.
+        </mat-error>
+      </mat-form-field>
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%" mat-dialog-actions>
+        <button mat-raised-button  color="primary" (click)="onSubmit()">submit</button>
+        <mat-spinner matSuffix  *ngIf="registerLoading" mode="indeterminate" diameter="40"></mat-spinner>
+
+      </div>
+
+    </mat-step>
+  </mat-horizontal-stepper>
+  <mat-vertical-stepper *ngIf="isPortrait()" linear #stepper>
+    <mat-step formGroupName="nameGroup" [stepControl]="formGroup.get('nameGroup')">
+      <ng-template matStepLabel>Name</ng-template>
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="First name" formControlName="firstName" required>
+          <mat-error
+            *ngIf="formGroup.get('nameGroup').get('firstName').invalid && (formGroup.get('nameGroup').get('firstName').dirty || formGroup.get('nameGroup').get('firstName').touched)">
+            First name is required.
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Last name" formControlName="lastName" required>
+          <mat-error
+            *ngIf="formGroup.get('nameGroup').get('lastName').invalid && (formGroup.get('nameGroup').get('lastName').dirty || formGroup.get('nameGroup').get('lastName').touched)">
+            Last name is required.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+
+    <mat-step formGroupName="emailGroup" [stepControl]="formGroup.get('emailGroup')">
+      <ng-template matStepLabel>Email</ng-template>
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Email" formControlName="email" required>
+          <mat-error
+            *ngIf="(formGroup.get('emailGroup').get('email').getError('required')||formGroup.get('emailGroup').get('email').getError('email')) && (formGroup.get('emailGroup').get('email').dirty || formGroup.get('emailGroup').get('email').touched)">
+            Email must be valid.
+          </mat-error>
+          <mat-error *ngIf="(formGroup.get('emailGroup').get('email').getError('taken'))">
+            Email elready exists.
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Confirm Email" formControlName="confirmEmail" required>
+          <mat-error
+            *ngIf="formGroup.get('emailGroup').get('confirmEmail').invalid && (formGroup.get('emailGroup').get('confirmEmail').dirty || formGroup.get('emailGroup').get('confirmEmail').touched)">
+            Emails do not match.
+          </mat-error>
+        </mat-form-field>
+
+
+      </div>
+
+
+      <div>
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step formGroupName="passwordGroup" [stepControl]="formGroup.get('passwordGroup')">
+      <ng-template matStepLabel>Password</ng-template>,
+      <mat-form-field>
+        <input matInput placeholder="Password" #password type="password" formControlName="password" required>
+        <mat-error
+          *ngIf="formGroup.get('passwordGroup').get('password').invalid && (formGroup.get('passwordGroup').get('password').dirty || formGroup.get('passwordGroup').get('password').touched)">
+          Minimum 8 characters.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Confirm Password" type="password" formControlName="confirmPassword" required>
+        <mat-error
+          *ngIf="formGroup.get('passwordGroup').invalid && (formGroup.get('passwordGroup').get('confirmPassword').dirty || formGroup.get('passwordGroup').get('confirmPassword').touched)">
+          Passwords do not match.
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <mat-form-field>
+        <input matInput (keypress)="numberOnly($event)" placeholder="Phone number" formControlName="phoneNumber"
+          required>
+        <mat-error
+          *ngIf="formGroup.get('phoneNumber').invalid && (formGroup.get('phoneNumber').dirty || formGroup.get('phoneNumber').touched)">
+          Valid phone number required.
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-raised-button color="primary" (click)="onSubmit()">submit</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</form>

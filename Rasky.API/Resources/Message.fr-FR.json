@@ -1,0 +1,14 @@
+{
+    "LoginAlreadyAssociated": "",
+    "InvalidUserName": "Aucun compte utilisant cet email",
+    "InvalidEmail": "Aucun compte utilisant cet email",
+    "DuplicateUserName":  "Un compte est déja assosié à cet email",
+    "DuplicateEmail": "Un compte est déja assosié à cet email",
+    "UserAlreadyHasPassword": "",
+    "PasswordTooShort": "Mot de pass doit contenir au moins 8 caractère",
+    "PasswordRequiresNonAlphanumeric": "Mot de pass doit contenir au moins 1 caractère spécial",
+    "PasswordRequiresDigit": "Mot de pass doit contenir au moins 1 caractère numerique",
+    "PasswordRequiresLower": "Mot de pass doit contenir au moins 1 caractère minuscule",
+    "PasswordRequiresUpper": "Mot de pass doit contenir au moins 1 caractère majuscule",
+    "SuccessfulRegistration":"Votre compte a été créé"
+}
