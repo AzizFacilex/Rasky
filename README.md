@@ -4,7 +4,7 @@ This is a web application developed with Angular that aimed to provide users wit
 
 ## Status
 
-This project is no longer under active development and is not being actively maintained. It has been replaced by another project that offers better features and functionality.
+This project is no longer under active development and is not being actively maintained. It will be replaced by another project that offers better features and functionality.
 
 ## Technologies Used
 
