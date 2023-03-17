@@ -1,4 +1,4 @@
-# CarSharing Project with Angular (No longer under active development)
+# Rasky: CarSharing Project with Angular (No longer under active development)
 
 This is a web application developed with Angular that aimed to provide users with an easy-to-use car sharing platform. With this project, users could find available cars in their vicinity, book them for a desired period of time, and unlock them with their smartphones.
 
